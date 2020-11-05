@@ -3,48 +3,45 @@ import Article from './article.jsx';
 
 class Dropdown extends Component {
   constructor(props) {
-      super(props);
-      this.state = {
-          textDisplay: true,
-          articles: [],
-      }
-      this.ToggleButton = this.ToggleButton.bind(this);
+    super(props);
+    this.state = {
+      textDisplay: true,
+      articles: [],
+    };
+    this.ToggleButton = this.ToggleButton.bind(this);
   }
   // fetch request grabbing all articles based off priority level
-  
 
   ToggleButton(event) {
-    const priority = event.target.innerHTML.split(" ")[0].toLowerCase();
-    
-      this.setState((currentState) => ({
-          textDisplay: !currentState.textDisplay, 
-      }));
+    const priority = event.target.innerHTML.split(' ')[0].toLowerCase();
 
-      fetch(`/api/getArticles/${priority}`)
-      .then(res => res.json())
-      .then(data => {
-        this.setState({articles: data});
-        })
-        .catch(err => console.log(err));
+    this.setState((currentState) => ({
+      textDisplay: !currentState.textDisplay,
+    }));
+
+    fetch(`/api/getArticles/${priority}`)
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({ articles: data });
+      })
+      .catch((err) => console.log(err));
   }
 
-  render(){
+  render() {
     // push article components into array
-    
+
     const links = this.state.articles;
-    const articles = links.map(link => {
-      return <Article url={link.url} title={link.title} />
+    const articles = links.map((link) => {
+      return <Article url={link.url} title={link.title} />;
     });
-      return (
-        <div className="dropdown">
-            <button className="dropdown-btn" onClick={this.ToggleButton}>
-                {this.props.text}
-            </button>
-            <div id="dropdown-articles-container">
-            {!this.state.textDisplay && articles}
-            </div>
-        </div>
-      )
+    return (
+      <div className="dropdown">
+        <button className="dropdown-btn" onClick={this.ToggleButton}>
+          {this.props.text}
+        </button>
+        <div id="dropdown-articles-container">{!this.state.textDisplay && articles}</div>
+      </div>
+    );
   }
 }
 
