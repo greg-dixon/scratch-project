@@ -1,8 +1,6 @@
-import pkg from 'redux';
+import { createStore } from 'redux';
 // import { composeWithDevTools } from 'redux-devtools-extension';
 import reducers from './reducers/index.js';
-
-const { createStore } = pkg;
 
 const store = createStore(reducers);
 

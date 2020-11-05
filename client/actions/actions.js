@@ -1,4 +1,4 @@
-import * as types from '../constants/actionTypes';
+import * as types from '../constants/actionTypes.js';
 
 export const loginUserAction = (username, password) => ({
   type: types.ENTER_USER_PASSWORD,
@@ -32,3 +32,5 @@ export const populateMenus = (articleArray, priority) => ({
   priority,
   articleArray,
 });
+
+loginUserAction('name', 'pass');

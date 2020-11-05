@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Login from './components/login.jsx';
 import SignUp from './components/signUp.jsx';
 import Dashboard from './components/dashboard.jsx';
@@ -8,45 +9,51 @@ class App extends Component {
     super(props);
     this.state = {
       isLoggedIn: false,
-      isSignedUp: true
-    }
-    this.handleLogIn = this.handleLogIn.bind(this);  // binding the functionality to the constructor
+      isSignedUp: true,
+    };
+    this.handleLogIn = this.handleLogIn.bind(this); // binding the functionality to the constructor
     this.handleSignUp = this.handleSignUp.bind(this);
   }
 
-  handleLogIn() {  
+  handleLogIn() {
     let { isLoggedIn, isSignedUp } = this.state;
     isSignedUp = true;
-    this.setState({ isLoggedIn: !isLoggedIn, isSignedUp: isSignedUp }); //setState changes the steate- if isLogged is true, it's changing it to false. And if isSignedUp is true, it's keeping its value as true?
+    this.setState({ isLoggedIn: !isLoggedIn, isSignedUp }); // setState changes the steate- if isLogged is true, it's changing it to false. And if isSignedUp is true, it's keeping its value as true?
   }
 
   handleSignUp() {
-    let { isSignedUp } = this.state;
-    this.setState({isSignedUp: !isSignedUp}); //changing the state to true or false depending on the current state
+    const { isSignedUp } = this.state;
+    this.setState({ isSignedUp: !isSignedUp }); // changing the state to true or false depending on the current state
   }
 
   render() {
+    console.log('props', this.props);
     const { isLoggedIn, isSignedUp } = this.state;
     if (isSignedUp && !isLoggedIn) {
       return (
         <div>
           {/* setting both of these as props- so we can call the methods in the children, which changes the state of the parent */}
-          <Login handleLogIn={this.handleLogIn} handleSignUp={this.handleSignUp} />  
+          <Login handleLogIn={this.handleLogIn} handleSignUp={this.handleSignUp} />
         </div>
-      )
-    } else if (isLoggedIn) {
-      return (
-        <div>
-          <Dashboard handleLogIn={this.handleLogIn}/>
-        </div>
-      )
-    } else {
-      return (
-        <div>
-          <SignUp handleLogIn={this.handleLogIn} />
-        </div>)
+      );
     }
+    if (isLoggedIn) {
+      return (
+        <div>
+          <Dashboard handleLogIn={this.handleLogIn} />
+        </div>
+      );
+    }
+    return (
+      <div>
+        <SignUp handleLogIn={this.handleLogIn} />
+      </div>
+    );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {};
+};
+
+export default connect(mapStateToProps)(App);
