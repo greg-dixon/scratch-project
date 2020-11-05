@@ -4,6 +4,7 @@ const initialState = {
   username: '',
   password: '',
   isLoggedIn: false,
+  isModalOpen: false,
   top3: [],
   dropdownMenus: {
     high: [],

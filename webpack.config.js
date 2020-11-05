@@ -3,10 +3,10 @@ const path = require('path');
 module.exports = {
   // entry point of our front-end
   entry: './client/index.js',
-  // this is where we want our bundle file to go 
+  // this is where we want our bundle file to go
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   devServer: {
     publicPath: '/build/',
@@ -14,39 +14,35 @@ module.exports = {
     proxy: {
       '/api': {
         target: 'http://localhost:3000',
-        pathRewrite: {'^/api' : ''}
-      }
+        pathRewrite: { '^/api': '' },
+      },
     },
-    contentBase: './client'
+    contentBase: './client',
   },
   // telling webpack if we're in production or development mode
   mode: process.env.NODE_ENV,
   // telling webpack how to read and use loaders on our files
   module: {
     rules: [
-      { 
-        //translates ES6 to ES5 javascript
-        test: /\.jsx?$/, 
+      {
+        // translates ES6 to ES5 javascript
+        test: /\.jsx?$/,
         exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-          }
-        }
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
       },
-      //translates sass to css to style
+      // translates sass to css to style
       {
-        test: /\.s?css$/i, 
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader',
-        ]
-      }
-    ]
+        test: /\.s?css$/i,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+    ],
   },
   performance: {
-    hints: false
-  }
-}
+    hints: false,
+  },
+};
